@@ -1,0 +1,39 @@
+{
+  "name": "string-portrait",
+  "version": "0.1.0",
+  "description": "Turn a photo into single-thread string art — plotter/print-ready, made in your browser.",
+  "type": "module",
+  "private": false,
+  "homepage": "https://baditaflorin.github.io/string-portrait/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/baditaflorin/string-portrait.git"
+  },
+  "bugs": {
+    "url": "https://github.com/baditaflorin/string-portrait/issues"
+  },
+  "license": "MIT",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "bash scripts/build-pages.sh",
+    "preview": "vite preview --host 0.0.0.0",
+    "pages-preview": "vite preview --host 0.0.0.0 --port 4174",
+    "smoke": "bash scripts/smoke.sh",
+    "fmt": "prettier --write .",
+    "fmt:check": "prettier --check .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "jsdom": "^26.0.0",
+    "prettier": "^3.7.4",
+    "typescript": "^5.9.3",
+    "vite": "^7.0.0",
+    "vitest": "^2.1.0"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

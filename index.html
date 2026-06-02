@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>string-portrait — photo to single-thread string art</title>
+    <meta
+      name="description"
+      content="Turn a photo into single-thread string art — plotter/print-ready, made in your browser. No backend, nothing leaves your device."
+    />
+    <link rel="stylesheet" href="./src/styles.css" />
+  </head>
+  <body>
+    <main class="stage">
+      <canvas id="canvas"></canvas>
+    </main>
+
+    <aside class="panel" id="panel">
+      <header class="panel-head">
+        <h1>string-portrait</h1>
+        <button type="button" id="toggle-panel" class="ghost" aria-label="Hide controls">×</button>
+      </header>
+
+      <p class="tagline">
+        A photo, wound as one continuous thread between nails on a circular loom.
+      </p>
+
+      <div class="buttons">
+        <label class="file-btn primary" for="file">📷 Upload photo</label>
+        <input type="file" id="file" accept="image/*" hidden />
+        <button type="button" id="sample">✦ Sample</button>
+      </div>
+
+      <label class="row">
+        <span>Nails <output id="nails-out"></output></span>
+        <input type="range" id="nails" min="120" max="360" step="1" value="240" />
+      </label>
+      <label class="row">
+        <span>Max lines <output id="maxLines-out"></output></span>
+        <input type="range" id="maxLines" min="500" max="4000" step="50" value="2500" />
+      </label>
+      <label class="row">
+        <span>Thread strength <output id="strength-out"></output></span>
+        <input type="range" id="strength" min="0.05" max="0.5" step="0.01" value="0.15" />
+      </label>
+      <label class="row">
+        <span>Line opacity <output id="opacity-out"></output></span>
+        <input type="range" id="opacity" min="0.05" max="1" step="0.05" value="0.5" />
+      </label>
+      <label class="row row-check">
+        <span>Invert (light subject)</span>
+        <input type="checkbox" id="invert" />
+      </label>
+
+      <div class="buttons">
+        <button type="button" id="generate" class="primary">▶ Generate</button>
+        <button type="button" id="stop" disabled>■ Stop</button>
+      </div>
+
+      <div class="progress" id="progress" role="status" aria-live="polite">
+        Ready — load a photo or hit ✦ Sample.
+      </div>
+
+      <div class="buttons">
+        <button type="button" id="png">⬇ PNG</button>
+        <button type="button" id="svg">⬇ SVG</button>
+        <button type="button" id="txt">⬇ Nails .txt</button>
+      </div>
+
+      <footer class="self-ref">
+        <a
+          id="source"
+          href="https://github.com/baditaflorin/string-portrait"
+          target="_blank"
+          rel="noopener"
+          >source</a
+        >
+        ·
+        <a href="https://www.paypal.com/paypalme/florinbadita" target="_blank" rel="noopener"
+          >tip ♥</a
+        >
+        · <span id="version">vdev</span>
+      </footer>
+    </aside>
+
+    <button type="button" id="show-panel" class="show-panel" aria-label="Show controls">⚙</button>
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+    <script type="module" src="./src/main.ts"></script>
+  </body>
+</html>
