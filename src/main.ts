@@ -160,7 +160,15 @@ function startGeneration(): void {
 
   residual = grayToResidual(sourceGray, RES, RES, settings.invert);
   const radius = RES / 2 - 1;
-  nails = nailPositions(settings.nails, radius, RES / 2, RES / 2);
+  // Snapshot the nail count for the lifetime of this run. The "Nails" slider
+  // stays live (the user can drag it mid-run to preview a value for next
+  // time), but `nails`/`used`'s edge-key encoding must stay pinned to
+  // whatever count the nail positions were actually built with — reading
+  // `settings.nails` live here would silently corrupt `edgeKey` hashing
+  // partway through a run (bug: mid-run edge-key drift), letting the
+  // "never redraw the same chord" guarantee break.
+  const nailCount = settings.nails;
+  nails = nailPositions(nailCount, radius, RES / 2, RES / 2);
   sequence = [0];
   used = new Set<number>();
   current = 0;
@@ -185,7 +193,7 @@ function startGeneration(): void {
         width: RES,
         height: RES,
         used,
-        count: settings.nails,
+        count: nailCount,
       });
       if (next < 0) {
         // Nothing worth drawing remains — finish early.
@@ -196,7 +204,7 @@ function startGeneration(): void {
       const b = nails[next]!;
       const px = linePixels(a.x, a.y, b.x, b.y);
       subtractLine(residual, px, settings.strength, { width: RES, height: RES });
-      used.add(edgeKey(current, next, settings.nails));
+      used.add(edgeKey(current, next, nailCount));
 
       ctx.beginPath();
       ctx.moveTo(a.x, a.y);
